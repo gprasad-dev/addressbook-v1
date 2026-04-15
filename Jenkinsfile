@@ -4,18 +4,34 @@ pipeline {
     stages {
         stage('git checkout') {
             steps {
-                git credentialsId: 'cred-git', url: 'https://github.com/gprasad-dev/addressbook-v1.git'
+                git 'https://github.com/sthita933/addressbook-v1.git'
             }
         }
-        stage('compilitation the code') {
+         stage('compilitation the code') {
             steps {
                 sh 'mvn compile'
             }
         }
-        stage('code review') {
+         stage('code review') {
             steps {
-                sh 'pwd'
+                sh 'mvn pmd:pmd'
             }
         }
+        stage('Unit test') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+        stage('package') {
+            steps {
+                sh 'mvn package'
+            }
+        }
+        stage('Code coverage') {
+            steps {
+                sh 'mvn verify'
+            }
+        }
+        
     }
 }
