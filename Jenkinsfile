@@ -19,7 +19,7 @@ pipeline {
         }
         stage('code review') {
             steps {
-                sh 'mvn pwd'
+                sh 'pwd'
             }
         }
     }
