@@ -32,6 +32,10 @@ pipeline {
                 sh 'mvn verify'
             }
         }
-        
+        stage('s3 bucket storing') {
+            steps {
+                s3Upload acl: 'Private', bucket: 'declarative-pipeline-bucket-gyana',file: 'target/*.war'
+            }
+        }
     }
 }
