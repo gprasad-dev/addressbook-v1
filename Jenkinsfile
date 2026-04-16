@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('git checkout') {
             steps {
-                git 'https://github.com/sthita933/addressbook-v1.git'
+                git credentialsId: 'cred-git', url: 'https://github.com/gprasad-dev/addressbook-v1.git'
             }
         }
          stage('compilitation the code') {
