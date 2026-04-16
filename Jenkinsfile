@@ -34,8 +34,13 @@ pipeline {
         }
         stage('s3 bucket storing') {
             steps {
-                s3Upload acl: 'Private', bucket: 'declarative-pipeline-bucket-gyana',file: '/var/lib/jenkins/workspace/Declarative-pipeline-job/target/*.war'
+                s3Upload(
+                    bucket: 'declarative-pipeline-bucket-gyana',
+                    file: 'target/addressbook.war',
+                    acl: 'Private'
+                )
             }
         }
+
     }
 }
