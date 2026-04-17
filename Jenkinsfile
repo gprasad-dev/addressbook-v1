@@ -47,5 +47,10 @@ pipeline {
                 ])
             }
         }
+        stage('Deploy code to tomcat') {
+            steps {
+                sh 'sudo cp /var/lib/jenkins/workspace/Declarative-pipeline-job/target/*.war /home/ubuntu/tomcat/webapps/'
+            }
+        }
     }
 }
