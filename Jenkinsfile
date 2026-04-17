@@ -35,11 +35,11 @@ pipeline {
         stage('s3 bucket storing') {
             steps {
                 s3Upload(
+                    file: 'target/addressbook.war', 
                     bucket: 'declarative-s3-bucket-jenkins',
-                    file: 'target/addressbook.war',
                     acl: 'Private'
                 )
             }
-        }
+        }        
     }
 }
