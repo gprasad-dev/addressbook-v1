@@ -7,12 +7,12 @@ pipeline {
                 git credentialsId: 'cred-git', url: 'https://github.com/gprasad-dev/addressbook-v1.git'
             }
         }
-         stage('compilitation the code') {
+        stage('compilation') {
             steps {
                 sh 'mvn compile'
             }
         }
-         stage('code review') {
+        stage('code review') {
             steps {
                 sh 'mvn pmd:pmd'
             }
@@ -34,17 +34,15 @@ pipeline {
         }
         stage('s3 bucket storing') {
             steps {
-                step([$class: 'S3BucketPublisher', 
+                // This is the cleanest version that matches your plugin
+                s3Upload(
+                    profileName: 'S3-profile',
                     entries: [[
-                        bucket: 'declarative-s3-bucket-jenkins', 
-                        noUploadOnFailure: true, 
-                        selectedRegion: 'ap-south-1', 
-                        sourceFile: 'target/addressbook.war', 
-                        managedArtifacts: false
-                    ]], 
-                    profileName: 'S3-profile', // This MUST match the name you just saved in Jenkins settings
-                    consoleLogPublishResult: true
-                ])
+                        bucket: 'declarative-s3-bucket-jenkins',
+                        sourceFile: 'target/addressbook.war',
+                        selectedRegion: 'ap-south-1'
+                    ]]
+                )
             }
         }
     }
