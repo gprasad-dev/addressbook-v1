@@ -34,12 +34,25 @@ pipeline {
         }
         stage('s3 bucket storing') {
             steps {
-                s3Upload entries: [[
-                    sourceFile: 'target/addressbook.war',
-                    selectedRegion: 'ap-south-1',
-                    noUploadOnFailure: true
-                ]], 
-                bucket: 'declarative-s3-bucket-jenkins'
+                step([$class: 'S3BucketPublisher', 
+                    entries: [[
+                        bucket: 'declarative-s3-bucket-jenkins', 
+                        excludedFileMask: '', 
+                        flatten: false, 
+                        gzipFiles: false, 
+                        managedArtifacts: false, 
+                        noUploadOnFailure: true, 
+                        selectedRegion: 'ap-south-1', 
+                        showDirectlyInBrowser: false, 
+                        sourceFile: 'target/addressbook.war', 
+                        storageClass: 'STANDARD', 
+                        uploadFromSlave: false, 
+                        useServerSideEncryption: false
+                    ]], 
+                    profileName: 's3-profile-name', // MUST MATCH the name in Manage Jenkins -> System
+                    dontWaitForConcurrentBuildCompletion: false, 
+                    consoleLogPublishResult: true
+                ])
             }
         }
     }
