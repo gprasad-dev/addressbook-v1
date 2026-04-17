@@ -32,5 +32,10 @@ pipeline {
                 sh 'mvn verify'
             }
         }
+        stage('s3 bucket storing') {
+            steps {
+                s3Upload acl: 'Private', bucket: ' declarative-s3-bucket-jenkins', file: 'target/*.war'
+            }
+        }        
     }
 }
