@@ -17,5 +17,20 @@ pipeline {
                 sh 'mvn pwd:pwd'
             }
         }
+        stage('Unit test') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+        stage('package') {
+            steps {
+                sh 'mvn package'
+            }
+        }
+        stage('Code coverage') {
+            steps {
+                sh 'mvn verify'
+            }
+        }
     }
 }
