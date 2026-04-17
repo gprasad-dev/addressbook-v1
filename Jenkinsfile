@@ -7,5 +7,10 @@ pipeline {
                 git credentialsId: 'cred-git', url: 'https://github.com/gprasad-dev/addressbook-v1.git'
             }
         }
+        stage('compilation of code') {
+            steps {
+                sh 'mvn compile'
+            }
+        }
     }
 }
