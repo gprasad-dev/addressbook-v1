@@ -37,20 +37,12 @@ pipeline {
                 step([$class: 'S3BucketPublisher', 
                     entries: [[
                         bucket: 'declarative-s3-bucket-jenkins', 
-                        excludedFileMask: '', 
-                        flatten: false, 
-                        gzipFiles: false, 
-                        managedArtifacts: false, 
                         noUploadOnFailure: true, 
                         selectedRegion: 'ap-south-1', 
-                        showDirectlyInBrowser: false, 
                         sourceFile: 'target/addressbook.war', 
-                        storageClass: 'STANDARD', 
-                        uploadFromSlave: false, 
-                        useServerSideEncryption: false
+                        managedArtifacts: false
                     ]], 
-                    profileName: 's3-profile-name', // MUST MATCH the name in Manage Jenkins -> System
-                    dontWaitForConcurrentBuildCompletion: false, 
+                    profileName: 'S3-profile', // This MUST match the name you just saved in Jenkins settings
                     consoleLogPublishResult: true
                 ])
             }
