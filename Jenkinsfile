@@ -42,7 +42,7 @@ pipeline {
                         sourceFile: 'target/addressbook.war', 
                         managedArtifacts: false
                     ]], 
-                    profileName: 'S3-profilee', // This MUST match the name you just saved in Jenkins settings
+                    profileName: 'S3-profile', // This MUST match the name you just saved in Jenkins settings
                     consoleLogPublishResult: true
                 ])
             }
