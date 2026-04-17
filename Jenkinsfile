@@ -34,12 +34,12 @@ pipeline {
         }
         stage('s3 bucket storing') {
             steps {
-                s3Upload entries: [[
-                    sourceFile: 'target/addressbook.war', 
-                    bucket: 'declarative-s3-bucket-jenkins', 
-                    selectedRegion: 'ap-south-1', 
-                    noUploadOnFailure: true
-                ]]
+                s3Upload(
+                    file: 'target/addressbook.war',
+                    bucket: 'declarative-s3-bucket-jenkins',
+                    path: 'addressbook.war',
+                    acl: 'Private'
+                )
             }
         }
     }
