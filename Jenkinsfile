@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('git checkout') {
             steps {
-                git credentialsId: 'cred-git', url: 'https://github.com/gprasad-dev/addressbook-v1.git'
+                git 'https://github.com/gprasad-dev/addressbook-v1.git'
             }
         }
          stage('compilitation the code') {
@@ -34,22 +34,7 @@ pipeline {
         }
         stage('s3 bucket storing') {
             steps {
-                step([$class: 'S3BucketPublisher', 
-                    entries: [[
-                        bucket: 'declarative-s3-bucket-jenkins', 
-                        noUploadOnFailure: true, 
-                        selectedRegion: 'ap-south-1', 
-                        sourceFile: 'target/addressbook.war', 
-                        managedArtifacts: false
-                    ]], 
-                    profileName: 'S3-profile', // This MUST match the name you just saved in Jenkins settings
-                    consoleLogPublishResult: true
-                ])
-            }
-        }
-        stage('Deploy code to tomcat') {
-            steps {
-                sh 'sudo cp /var/lib/jenkins/workspace/Declarative-pipeline-job/target/*.war /home/ubuntu/tomcat/webapps/'
+                s3Upload acl: 'Private', bucket: 'kubebytes-bucket-2006', file: '/var/lib/jenkins/workspace/abc/target/addressbook.war'
             }
         }
     }
