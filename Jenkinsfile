@@ -35,7 +35,7 @@ pipeline {
         }
         stage('s3 bucket storing') {
             steps {
-               s3Upload acl: 'Private', bucket: 'kubebytes-bucket-2006', cacheControl: '', excludePathPattern: '', file: '/var/lib/jenkins/workspace/abc/target/addressbook.war', includePathPattern: '', metadatas: [''], redirectLocation: '', sseAlgorithm: '', tags: '', text: '', workingDir: ''
+               s3Upload acl: 'Private', bucket: 'kubebytes-bucket-2006', file: '/var/lib/jenkins/workspace/abc/target/addressbook.war'
             }
         }
         
